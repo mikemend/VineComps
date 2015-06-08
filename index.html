@@ -1,0 +1,44 @@
+<html>
+<head>
+<script src="cordova.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+var domain = 'http://atomicbubbleapps.com/vineComps';
+var epoch = (new Date).getTime();
+var ni = localStorage.getItem('noInternet')||"url('res/splash/drawable-xhdpi/splash.png')";
+var bodyColor = localStorage.getItem('bodyColor')||'#1A9A5E';
+var tryAgain = localStorage.getItem('tryAgain')||'No Internet Connection- Please try again';
+document.write('<script type="text/javascript" src="'+domain+'main.js?'+epoch+'"></scr'+'ipt>');
+function bodyLoaded(){
+document.getElementById('ping').src = domain +'img/pinng.gif?'+epoch;
+document.body.style.margin = "0";
+document.body.style.backgroundColor = bodyColor;
+}
+function noImage(image){
+image.parentNode.removeChild(image);
+image.onerror=null;
+image.src=ni;
+image.style.maxWidth ="100%";
+image.style.display = "block";
+image.style.marginLeft = "auto";
+image.style.marginRight ="auto";
+document.getElementById("load").style.width = "100%";
+document.getElementById("load").style.height = "100%";
+document.getElementById("tryAgain").style.width = "100%";
+document.getElementById("tryAgain").style.height = "10%";
+document.getElementById('tryAgain').innerHTML = tryAgain;
+document.getElementById('tryAgain').style.visibility="visible";
+document.getElementById('load').style.backgroundImage = ni;
+document.getElementById('load').style.backgroundSize="contain";
+document.getElementById('tryAgain').style.marginTop="85%";
+}
+window.onload = bodyLoaded;
+</script>
+</head>
+<body>
+<div id="load">
+<img id="ping" onerror="noImage(this)">
+<button id="tryAgain" onclick="location.reload()" style="visibility:hidden"></button>
+</div>
+</body>
+</html>
